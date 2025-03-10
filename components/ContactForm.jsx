@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import LoadingOverlay from "./LoadingOverlay";
-import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 
 const ContactForm = () => {
     const { query } = useRouter().query;
@@ -17,7 +16,7 @@ const ContactForm = () => {
         service: query ? query : "",
         description: "",
     });
-    const { services, BASE_URL_API } = useDetails();
+    const { services, BASE_URL_API, companyDetails } = useDetails();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,6 +59,12 @@ const ContactForm = () => {
         }
     };
 
+    const isLoading = !services.length || !companyDetails;
+
+    if (isLoading) {
+        return <LoadingOverlay />;
+    }
+
     return (
         <section className="contact-section w-100">
             {loading && <LoadingOverlay />}
@@ -67,7 +72,9 @@ const ContactForm = () => {
                 <Row className="w-100 contact-info-wrapper">
                     <Col lg={6} md={12}>
                         <div className="contact-info-left">
-                            <h2 className="contact-info-title">Lets Work Together!</h2>
+                            <h2 className="contact-info-title">
+                                Lets Work Together!
+                            </h2>
                             <div className="contact-info-text">
                                 Have any questions? Feel free to reach out. We
                                 are here to help you with all your inquiries.

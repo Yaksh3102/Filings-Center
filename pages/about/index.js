@@ -7,23 +7,36 @@ import TestimonialsSection from "@/components/TestimonialSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import { useDetails } from "@/contexts/DetailsContext";
+import CertificateSection from "@/components/CertificateSection";
 
 const About = () => {
-
-    const {services, companyDetails} = useDetails();
+    const { services, companyDetails, fetchCarouselCMS } = useDetails();
 
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if (!services.length || !companyDetails) {
-            setLoading(true);
-        }
-        if (services.length > 0 && companyDetails) {
-            setLoading(false); 
-        }
-    }, [services, companyDetails]);
+    const [certificates, setCertificates] = useState([]);
 
-    if (loading) {
+    const fetchCertificates = async () => {
+        try {
+            const data = await fetchCarouselCMS({ slug: "/certificates" });
+            if (data.isOk) {
+                setCertificates(data.data);
+            } else {
+                setCertificates([]);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCertificates();
+    }, []);
+
+    const isLoading =
+        !services.length || !companyDetails || setCertificates.length === 0;
+
+    if (isLoading) {
         return <LoadingOverlay />;
     }
 
@@ -42,9 +55,10 @@ const About = () => {
                     </span>
                 </div>
             </div>
-            <AboutUs/>
-            <WhyChooseUs/>
-            <TestimonialsSection/>
+            <AboutUs />
+            {/* <CertificateSection certificates={certificates} /> */}
+            <WhyChooseUs />
+            <TestimonialsSection />
         </>
     );
 };

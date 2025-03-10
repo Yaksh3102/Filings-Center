@@ -6,18 +6,18 @@ import { Container } from "react-bootstrap";
 
 const index = () => {
     const { services, companyDetails, fetchCMS } = useDetails();
-    const [termsData, setTermsData] = useState(null);
+    const [refundData, setRefundData] = useState(null);
 
     useEffect(() => {
-        if (!termsData) {
-            fetchCMS({ slug: "/terms-and-conditions" }).then((data) =>
-                setTermsData(data)
+        if (!refundData) {
+            fetchCMS({ slug: "/refund-policy" }).then((data) =>
+                setRefundData(data)
             );
         }
-    }, [termsData]);
+    }, [refundData]);
 
     // If any required data is missing, show the overlay
-    const isLoading = !services.length || !companyDetails || !termsData;
+    const isLoading = !services.length || !companyDetails || !refundData;
 
     if (isLoading) {
         return <LoadingOverlay />;
@@ -29,7 +29,7 @@ const index = () => {
                 <Container>
                     <div className="about-header-content">
                         <h1 className="about-header-title">
-                            Terms & Conditions
+                            Refund Policy
                         </h1>
                     </div>
                 </Container>
@@ -37,12 +37,12 @@ const index = () => {
                 <div className="breadcrumb-container">
                     <span className="breadcrumb-pill">
                         <Link href="/">Home</Link> &gt;{" "}
-                        <span>Terms & Conditions</span>
+                        <span>Refund Policy</span>
                     </span>
                 </div>
             </div>
             <Container className="mt-4">
-                <div dangerouslySetInnerHTML={{__html : termsData?.data?.content}} />
+                <div dangerouslySetInnerHTML={{__html : refundData?.data?.content}} />
             </Container>
         </>
     );

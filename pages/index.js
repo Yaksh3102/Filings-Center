@@ -8,12 +8,14 @@ import LoadingOverlay from "@/components/LoadingOverlay";
 import { useDetails } from "@/contexts/DetailsContext";
 import { useEffect, useState } from "react";
 import WhyChooseUsHome from "@/components/WhyChooseUsHome";
+import BlogsSection from "@/components/BlogsSection";
 
 export default function Home() {
     const { services, companyDetails, fetchBannerCMS, fetchCMS } = useDetails();
     const [heroData, setHeroData] = useState(null);
     const [aboutData, setAboutData] = useState(null);
     const [whyChooseUs, setWhyChooseUs] = useState(null);
+    const [blogsData, setBlogsData] = useState(null);
 
     useEffect(() => {
         if (!heroData) {
@@ -28,15 +30,18 @@ export default function Home() {
         }
         if (!whyChooseUs) {
             fetchCMS({ slug: "/home-why-choose-us" }).then((data) =>
-                // console.log(data)
                 setWhyChooseUs(data.data)
+            );
+        }
+        if (!blogsData) {
+            fetchCMS({ slug: "/home-blogs" }).then((data) =>
+                setBlogsData(data.data)
             );
         }
     }, [heroData, aboutData, whyChooseUs]);
 
-    // If any required data is missing, show the overlay
     const isLoading =
-        !services.length || !companyDetails || !heroData || !aboutData || !whyChooseUs;
+        !services.length || !companyDetails || !heroData || !aboutData || !whyChooseUs || !blogsData;
 
     if (isLoading) {
         return <LoadingOverlay />;
@@ -57,6 +62,7 @@ export default function Home() {
                 <AboutSection aboutData={aboutData} />
                 <CounterSection />
                 <ServicesSection />
+                <BlogsSection blogsData={blogsData}/>
                 <WhyChooseUsHome data={whyChooseUs}/>
                 <TestimonialsSection />
             </div>

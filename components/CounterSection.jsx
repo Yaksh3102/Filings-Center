@@ -71,14 +71,14 @@ const CounterSection = () => {
             <Container>
                 <Row className="justify-content-center">
                     {[
-                        { icon: <FaRocket size={iconSize} />, text: "Team Members", value: 200 },
-                        { icon: <FaHandshake size={iconSize} />, text: "Winning Awards", value: 20 },
-                        { icon: <FaBullhorn size={iconSize} />, text: "Complete Projects", value: 10000 },
-                        { icon: <FaBullseye size={iconSize} />, text: "Client Reviews", value: 900 },
+                        { icon: <FaRocket size={iconSize} />, text: "All Clients", value: 500 },
+                        { icon: <FaHandshake size={iconSize} />, text: "Happy Clients", value: 400 },
+                        { icon: <FaBullhorn size={iconSize} />, text: "Skilled Experts", value: 50 },
+                        { icon: <FaBullseye size={iconSize} />, text: "Services", value: 150 },
                     ].map((item, index) => (
                         <Col md={3} sm={6} xs={6} key={index} className="counter-item">
                             <div className="counter-icon">{item.icon}</div>
-                            <div>
+                            <div className="d-flex flex-column align-items-center">
                                 <h2 className="counter-number">{counts[index]}+</h2>
                                 <p className="counter-text">{item.text}</p>
                             </div>

@@ -3,7 +3,7 @@ import { Card, Button, Form } from "react-bootstrap";
 import { FaCheckCircle } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
-const ServicePackageCard = ({ packageData }) => {
+const ServicePackageCard = ({ handleBuyNow, packageData }) => {
     const { card, recommended } = packageData;
     const { title, includes, excludes, ratecard } = card;
 
@@ -17,7 +17,10 @@ const ServicePackageCard = ({ packageData }) => {
     );
 
     return (
-        <div className="service-package-card" style={{ border: recommended ? '1px solid red' : 'none' }}>
+        <div
+            className="service-package-card"
+            style={{ border: recommended ? "1px solid red" : "none" }}
+        >
             {recommended && (
                 <div className="recommended-badge">Recommended</div>
             )}
@@ -101,7 +104,18 @@ const ServicePackageCard = ({ packageData }) => {
                         />
                     ))}
                 </Form>
-                <Button variant="primary" className="buy-now-btn">
+                <Button
+                    variant="primary"
+                    className="buy-now-btn"
+                    onClick={() =>
+                        handleBuyNow(
+                            packageData._id,
+                            ratecard.filter(
+                                (rate) => rate.ourPrice === selectedRateCard
+                            )[0]
+                        )
+                    }
+                >
                     BUY NOW
                 </Button>
             </div>

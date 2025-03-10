@@ -4,23 +4,20 @@ import Image from "next/image";
 import { FaCheckCircle } from "react-icons/fa";
 
 const WhyChooseUsHome = ({ data }) => {
-    // Parse the backend HTML while keeping styles intact
     const parseContent = (htmlString) => {
         const tempElement = document.createElement("div");
         tempElement.innerHTML = htmlString;
 
-        // Extract heading and description (keeping original styles)
         const heading = tempElement.querySelector("p strong")?.outerHTML || "";
         const description = tempElement.querySelectorAll("p span")?.[0]?.outerHTML || "";
 
-        // Extract list items and their descriptions
         const listItems = [];
         const ulElements = tempElement.querySelectorAll("ul");
 
         ulElements.forEach((ul) => {
             const listItemElement = ul.querySelector("li strong");
             const descriptionElement = ul.nextElementSibling && ul.nextElementSibling.tagName === "P"
-                ? ul.nextElementSibling.outerHTML // Keep paragraph with styles
+                ? ul.nextElementSibling.outerHTML
                 : "";
 
             if (listItemElement) {
@@ -30,6 +27,9 @@ const WhyChooseUsHome = ({ data }) => {
 
         return { heading, description, listItems };
     };
+
+
+    console.log(data)
 
     const { heading, description, listItems } = parseContent(data.content);
 
@@ -57,7 +57,7 @@ const WhyChooseUsHome = ({ data }) => {
                     {/* Image Section */}
                     <Col md={6} className="why-image-container">
                         <Image
-                            src="/assets/pro-7.jpg"
+                            src={`${process.env.NEXT_PUBLIC_BASE_URL}/${data.image}`}
                             alt="Why Choose Us"
                             width={500}
                             height={450}

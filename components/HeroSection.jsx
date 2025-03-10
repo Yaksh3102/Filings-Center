@@ -28,6 +28,7 @@ const HeroSection = ({ heroData }) => {
                                 <Link
                                     href="https://facebook.com"
                                     target="_blank"
+                                    className="d-flex align-items-center"
                                 >
                                     <FaFacebook /> FACEBOOK
                                 </Link>
