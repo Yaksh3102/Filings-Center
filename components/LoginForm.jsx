@@ -154,7 +154,7 @@ const LoginForm = () => {
                                     <p className="mb-0">
                                         Don't have an account?{" "}
                                         <Link
-                                            href="/register"
+                                            href={`/register?redirect=${redirect}`}
                                             style={{
                                                 color: "#003049",
                                                 fontWeight: 600,

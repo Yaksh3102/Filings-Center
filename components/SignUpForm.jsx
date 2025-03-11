@@ -22,11 +22,12 @@ const SignUpForm = () => {
         city: "",
         address: "",
         pincode: "",
-        gst:"",
+        gst: "",
         policy: false,
     });
 
     const router = useRouter();
+    const { redirect } = router.query;
     const { BASE_URL_API, setUserDetails } = useDetails();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +96,7 @@ const SignUpForm = () => {
                 city: formData.city,
                 address: formData.address,
                 pincode: formData.pincode,
-                gst:formData.gst,
+                gst: formData.gst,
             };
             setIsLoading(true);
             try {
@@ -109,7 +110,11 @@ const SignUpForm = () => {
 
                 const data = await res.json();
                 if (data.isOk) {
-                    router.push("/");
+                    if(redirect){
+                        router.push(redirect);
+                    }else{
+                        router.push("/");
+                    }
                     toast.success(data.message);
                     setFormData({
                         firstname: "",
@@ -123,7 +128,7 @@ const SignUpForm = () => {
                         city: "",
                         address: "",
                         pincode: "",
-                        gst:"",
+                        gst: "",
                         policy: false,
                     });
                     setErrors({});
