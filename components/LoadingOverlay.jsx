@@ -6,9 +6,9 @@ const LoadingOverlay = () => {
   return (
       <div className="overlay">
         <Image
-          src="/assets/logo.png" 
-          width={150}
-          height={150}
+          src="/assets/overlay-filing-centre-logo.png" 
+          width={300}
+          height={300}
           alt="Loading"
           className="logo-overlay"
         />

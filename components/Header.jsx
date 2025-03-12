@@ -48,7 +48,8 @@ const Header = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const { services, companyDetails, userDetails, setUserDetails } = useDetails();
+  const { services, companyDetails, userDetails, setUserDetails } =
+    useDetails();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -155,6 +156,9 @@ const Header = () => {
               <Link href="/" className="top-bar-link-highlighted">
                 Virtual CFO
               </Link>
+              <Link href="/franchise-enquiry" className="top-bar-link-highlighted">
+                Franchise Enquiry
+              </Link>
               <Link href="/" className="top-bar-link">
                 Home
               </Link>
@@ -190,10 +194,7 @@ const Header = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (
-                <Link
-                  href="/login"
-                  className="top-bar-link-highlighted-signup"
-                >
+                <Link href="/login" className="top-bar-link-highlighted-signup">
                   Sign In
                 </Link>
               )}
@@ -207,7 +208,7 @@ const Header = () => {
           {/* Desktop Logo */}
           <Link href="/" className="d-none d-lg-block">
             <Image
-              src="/assets/logo.png"
+              src="/assets/filing-centre-logo.jpg"
               width={100}
               height={50}
               alt="Logo"
@@ -218,9 +219,9 @@ const Header = () => {
           {/* Mobile Logo */}
           <Navbar.Brand href="/" className="d-lg-none">
             <Image
-              src="/assets/logo.png"
-              width={160}
-              height={40}
+              src="/assets/filing-centre-logo.jpg"
+              width={50}
+              height={50}
               alt="Logo"
               className="logo-mobile"
             />
@@ -251,9 +252,9 @@ const Header = () => {
             <div className="mobile-header d-flex justify-content-between align-items-center d-lg-none">
               <Navbar.Brand href="/">
                 <Image
-                  src="/assets/logo.png"
-                  width={120}
-                  height={30}
+                  src="/assets/filing-centre-logo.jpg"
+                  width={50}
+                  height={50}
                   alt="Logo"
                 />
               </Navbar.Brand>
@@ -286,6 +287,14 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Virtual CFO
+                </Link>
+
+                <Link
+                  href="/franchise-enquiry"
+                  className="mobile-service-button"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Franchise Enquiry
                 </Link>
               </div>
             )}
