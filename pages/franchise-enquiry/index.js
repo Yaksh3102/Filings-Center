@@ -21,10 +21,14 @@ const FranchiseEnquiry = () => {
     state: "",
     city: "",
     description: "",
+    franchise: "", //  Franchise field
+    whatsapp: "", //  WhatsApp number field
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const franchiseOptions = ["Franchise 1", "Franchise 2", "Franchise 3"]; // ADDED: Franchise options for dropdown
 
   // Fetch list of countries, states, and cities
   const countries = Country.getAllCountries();
@@ -46,6 +50,12 @@ const FranchiseEnquiry = () => {
     if (name === "phone") {
       newValue = newValue.replace(/\D/g, "");
       if (newValue.length > 10) return; // Restrict to 10 digits
+    }
+
+    // ADDED: Handle WhatsApp number input similar to phone
+    if (name === "whatsapp") {
+      newValue = newValue.replace(/\D/g, "");
+      if (newValue.length > 10) return; // Restrict WhatsApp number to 10 digits
     }
 
     setFormData((prev) => ({ ...prev, [name]: newValue }));
@@ -102,6 +112,8 @@ const FranchiseEnquiry = () => {
         state: "",
         city: "",
         description: "",
+        franchise: "", //  Reset franchise field
+        whatsapp: "", //  Reset WhatsApp number field
       });
       setErrors({});
     } catch (err) {
@@ -119,7 +131,6 @@ const FranchiseEnquiry = () => {
 
       {/* 1) align-items-stretch ensures both columns share the same height */}
       <Row className="g-4 align-items-stretch">
-        
         {/* Left Column: Franchise Enquiry Form - NO changes here */}
         <Col md={6}>
           <Card className="enquiry-card">
@@ -154,6 +165,40 @@ const FranchiseEnquiry = () => {
                       {errors.phone && (
                         <small className="text-danger">{errors.phone}</small>
                       )}
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                {/* ADDED: WhatsApp Number Field */}
+                <Row>
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Control
+                        type="text"
+                        name="whatsapp"
+                        placeholder="WhatsApp Number"
+                        value={formData.whatsapp}
+                        onChange={handleChange}
+                      />
+                      {/* Optionally, add error display for WhatsApp if needed */}
+                    </Form.Group>
+                  </Col>
+
+                  {/* ADDED: Franchise Dropdown Field */}
+                  <Col md={6}>
+                    <Form.Group className="mb-3">
+                      <Form.Select
+                        name="franchise"
+                        value={formData.franchise}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select Franchise</option>
+                        {franchiseOptions.map((option, index) => (
+                          <option key={index} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                 </Row>

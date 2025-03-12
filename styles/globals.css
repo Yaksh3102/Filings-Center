@@ -4649,7 +4649,7 @@
   margin: 0 auto;
 }
 .enquiry-faq-scroll {
-  max-height: 490px; /* Adjust as needed */
+  max-height: 542px; /* Adjust as needed */
   /* overflow-y: auto; */
 }
 .enquiry-faq-scroll .card-body{
